@@ -1,0 +1,15 @@
+1. python manage.py makemigrations      #makemigrations 命令会检测你对模型文件的修改, 并且把修改的部分存储为一次`迁移`(migrate),
+migrate是Django 对于模型定义的变化的存储形式, 它其实也是一些磁盘上面的文件, 存储在应用根目录下面的migrations文件夹下面.
+makemigrations命令生成python语言表示的数据库结构.
+
+2. python manage.py sqlmigrate appName migrateName    # sqlmigrate 命令会根据makegrations命令生成的文件生成
+数据库SQL语句, 每一次迁移都会生成一个migrate文件, 对应一个SQL语句, 比如:
+ALTER TABLE `polls_choice` ADD COLUMAN `question_id` integet NOT NULL.
+数据库的表名是由应用名称polls和模型名称(小写)连接起来的
+
+3.  python manage.py check    # check 命令会检查项目中的问题, 并且在检查过程中不会对数据库进行任何操作.
+
+4. python manage.py migrate   # migrate 命令自动同步数据库迁移, 并同步管理你的数据库结构
+这个 migrate 命令选中所有还没有执行过的迁移（Django 通过在数据库中创建一个特殊的表 django_migrations 来跟踪执行过
+哪些迁移）并应用在数据库上 - 也就是将你对模型的更改同步到数据库结构上。
+
