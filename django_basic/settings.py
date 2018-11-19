@@ -50,8 +50,12 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# 定义工程的URL信息, 所有APP的根路径
 ROOT_URLCONF = 'django_basic.urls'
 
+# TEMPLATE配置指定了Django如何载入和渲染模板, 默认将APP_DIRS设置成了True, 这一项设置将会让
+# DjangoTemplates在INSTALLED_APP中注册的应用文件夹中寻找templates子目录, 当然也可以通过指定DIRS配置
+# 来指定加载模板的路径. 模板有自己的命名空间, 该命名空间与应用自身的名字相同
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -110,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 

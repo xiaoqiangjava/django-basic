@@ -13,3 +13,7 @@ ALTER TABLE `polls_choice` ADD COLUMAN `question_id` integet NOT NULL.
 这个 migrate 命令选中所有还没有执行过的迁移（Django 通过在数据库中创建一个特殊的表 django_migrations 来跟踪执行过
 哪些迁移）并应用在数据库上 - 也就是将你对模型的更改同步到数据库结构上。
 
+5. python manage.py runserver    # 启动应用
+
+6. python manage.py createsuperuser     # 创建超级用户
+

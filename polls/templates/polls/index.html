@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>问题主页</title>
+</head>
+<body>
+    <h1>最近发布的5个问题</h1>
+    <!-- 在模板中编写python代码, 可以使用下面语法 -->
+    {% if latest_question_list %}
+        <ul>
+            {% for question in latest_question_list %}
+                <li><a href="{% url 'polls:detail_v2' question.id %}"><b>question.question_txt</b></a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+</body>
+</html>

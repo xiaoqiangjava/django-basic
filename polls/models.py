@@ -13,8 +13,15 @@ class Question(models.Model):
     publish_date = models.DateTimeField('date published')
     auth = models.CharField(max_length=16)
 
+    def __str__(self):
+        return "Question[question_text=%s, publish_date=%s, auth=%s]" \
+               % (self.question_txt, self.publish_date, self.auth)
+
 
 class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_txt = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
+    def __str__(self):
+        return "Choice[choice_txt=%s, votes=%d]" % (self.choice_txt, self.votes)
