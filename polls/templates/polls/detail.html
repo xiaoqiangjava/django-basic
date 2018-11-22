@@ -6,11 +6,18 @@
 </head>
 <body>
     <h2>{{ question.question_txt }}</h2>
-    <ul>
+    {% if error_message %}
+        <p><strong>{{ error_message }}</strong></p>
+    {% endif %}
+    <!-- form -->
+    <form action="{% url 'polls:vote' question.id %}", method="post">
+        {% csrf_token %} <!-- python提供的防止跨站点请求伪造的模板标签 -->
         {% for choice in question.choice_set.all %}
-            <li>{{ choice.choice_txt }}</li>
+            <input type="radio" name="choice" id="choice{{ choice.id }}" value="{{ choice.id }}">
+            <label for="choice{{ forloop.counter }}">{{ choice.choice_txt }}</label>
         {% endfor %}
-    </ul>
-
+        <br>
+        <input type="submit" value="Vote">
+    </form>
 </body>
 </html>

@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>投票结果页</title>
+</head>
+<body>
+    <h1>{{ question.question_txt }}</h1>
+    {% for choice in question.choice_set.all %}
+        <p>{{ choice.choice_txt }}<label>({{ choice.votes }})</label></p>
+    {% endfor %}
+</body>
+</html>

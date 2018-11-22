@@ -1,8 +1,9 @@
-from django.http.response import HttpResponse
-from .models import Question
+from django.http.response import HttpResponse, HttpResponseRedirect
+from .models import Question, Choice
 from django.template import loader
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
+from django.urls import reverse
 import logging
 logging.basicConfig(level=logging.INFO)
 
@@ -57,9 +58,23 @@ def detail_v2(request, question_id):
 
 # 问题结果页
 def results(request, question_id):
-    return HttpResponse("You're looking at the result of question [%s]." % question_id)
+    question = get_object_or_404(Question, pk=question_id)
+    return render(request, "polls/result.html", {"question": question})
 
 
 # 投票处理器
 def vote(request, question_id):
-    return HttpResponse("You're voting on question [%s]." % question_id)
+    logging.info("Vote question %s", question_id)
+    question = get_object_or_404(Question, pk=question_id)
+    try:
+        # request.POST是一个类字典对象, 可以通过关键字的没名字获取POST请求中的参数
+        select_choice = question.choice_set.get(pk=request.POST["choice"])
+    except (KeyError, Choice.DoesNotExist):
+        return render(request, "polls/detail.html", {"question": question,
+                                                     "error_message": "You didn't select a choice"})
+    else:
+        select_choice.votes += 1
+        select_choice.save()
+    # HttpResponseRedirect将请求重定向, 值接收一个参数, 表示重定向的URL
+    # 使用reverse()函数可以返回一个字符串, 避免在视图函数中硬编码URL
+    return HttpResponseRedirect(reverse("polls:results", args=(question_id,)))
